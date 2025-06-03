@@ -44,6 +44,8 @@
         }
     </style>
     @stack('styles')
+    @livewireStyles
+    
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -63,7 +65,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('computers') ? 'active' : '' }}" href="/computers">
+                <a class="nav-link {{ request()->is('pcs') ? 'active' : '' }}" href="/pcs">
                     <i class="fas fa-laptop me-2"></i> Personal Computers
                 </a>
             </li>
@@ -89,5 +91,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     @stack('scripts')
+    @livewireScripts
 </body>
 </html>

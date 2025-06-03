@@ -3,9 +3,9 @@
 @section('title', 'Smartphones')
 
 @section('content')
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary">Our Smartphone Collection</h2>
+<div class="container py-0">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+        <h2 class="fw-bold text-dark">Our Smartphone Collection</h2>
         <div class="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown">
                 Sort By
@@ -17,6 +17,8 @@
             </ul>
         </div>
     </div>
+
+    @livewire('product-search')
 
     @if($products->isEmpty())
         <div class="alert alert-info text-center py-4">
@@ -30,19 +32,16 @@
             <div class="col-md-4 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm hover-shadow">
                     <div class="position-relative">
-                        <img src="{{ $product->photo ? asset('storage/'.$product->photo) : asset('images/placeholder-phone.png') }}" 
+                        <img src="{{ $product->photo ? asset('images/'.$product->photo) : asset('images/placeholder-phone.png') }}" 
                              class="card-img-top p-3" 
                              alt="{{ $product->productname }}"
                              style="height: 200px; object-fit: contain;">
-                        @if($product->created_at->diffInDays() < 7)
-                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">New</span>
-                        @endif
                     </div>
                     <div class="card-body pt-0">
                         <h5 class="card-title mb-1">{{ Str::limit($product->productname, 40) }}</h5>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <span class="text-success fw-bold">${{ number_format($product->price, 2) }}</span>
-                            <a href="{{ route('products.show', $product->id) }}" 
+                            <a href="{{ route('products-show', $product->id) }}" 
                                class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-eye me-1"></i> View
                             </a>

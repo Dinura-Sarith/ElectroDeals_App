@@ -3,6 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
+
 <!-- Bootstrap 5 Carousel Slider -->
 <div id="productCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
     <!-- Indicators -->

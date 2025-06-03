@@ -6,11 +6,11 @@
 
         <x-validation-errors class="mb-4" />
 
-        @session('status')
+        @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
+                {{ session('status') }}
             </div>
-        @endsession
+        @endif
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -32,16 +32,29 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+            <div class="flex items-center justify-between mt-4">
+                <div>
+                    @if (Route::has('password.request'))
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                            {{ __('Forgot your password?') }}
+                        </a>
+                    @endif
+                </div>
 
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
+                <div>
+                    <x-button class="ms-4">
+                        {{ __('Log in') }}
+                    </x-button>
+                </div>
+            </div>
+
+            <div class="text-center mt-6">
+                <p class="text-sm text-gray-600">
+                    {{ __("Don't have an account?") }}
+                    <a href="{{ route('register') }}" class="text-indigo-600 hover:underline">
+                        {{ __('Create a new account') }}
+                    </a>
+                </p>
             </div>
         </form>
     </x-authentication-card>

@@ -59,7 +59,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);
+        return view('customer.product-show', compact('product'));
     }
 
     /**
@@ -126,9 +127,9 @@ class ProductController extends Controller
 
         $query = Product::with('category')
             ->whereHas('category', function($query) {
-                $query->where('name', 'Smart Phones');
+                $query->where('name', 'Smart Phone');
             })
-            ->select('id', 'productname', 'price', 'photo', 'description', 'created_at');
+            ->select('id', 'productname', 'price', 'photo');
 
         switch ($sort) {
             case 'price_asc':
@@ -147,5 +148,34 @@ class ProductController extends Controller
         $products = $query->paginate(12);
 
         return view('customer.mobiles', compact('products'));
+    }
+
+        public function showPcs()
+    {
+        $sort = request()->input('sort');
+
+        $query = Product::with('category')
+            ->whereHas('category', function($query) {
+                $query->where('name', 'Personal Computers');
+            })
+            ->select('id', 'productname', 'price', 'photo');
+
+        switch ($sort) {
+            case 'price_asc':
+                $query->orderBy('price');
+                break;
+            case 'price_desc':
+                $query->orderByDesc('price');
+                break;
+            case 'name_asc':
+                $query->orderBy('productname');
+                break;
+            default:
+                $query->latest();
+        }
+
+        $products = $query->paginate(12);
+
+        return view('customer.pcs', compact('products'));
     }
 }
